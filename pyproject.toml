@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aemergent"
+version = "0.1.0"
+description = "Computational metaphysics framework with quantum quaternion text processing"
+authors = [
+    {name = "Joel", email = "monotropist@gmail.com"}
+]
+readme = "docs/README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy",
+    "jax",
+    "jaxlib",
+    "scipy",
+    "pytest>=8.4.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "pre-commit",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/aemergent"
+Repository = "https://github.com/yourusername/aemergent"
+
+[tool.hatch.build.targets.wheel]
+packages = ["aemergent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.flake8]
+max-line-length = 100
+exclude = ["tests/*"]
+
+[tool.uv.workspace]
+members = [
+    ".",
+]
+
+[tool.uv.sources]
+aemergent = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "aemergent",
+    "flake8>=7.3.0",
+    "pre-commit>=4.2.0",
+]
