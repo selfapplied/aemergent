@@ -243,12 +243,13 @@ def test_anext(simple_combit):
 
 def test_permute(simple_combit):
     """Test permute method."""
-    energy = np.array([1.0, 2.0])
+    energy = np.array([3.0, 1.0, 4.0, 2.0])  # Match dimension
     original_state = simple_combit.state.copy()
     simple_combit.permute(energy)
-    # Check that state was modified
+    # Check that state was modified (permutation should reorder elements)
     assert not np.array_equal(simple_combit.state, original_state)
-    assert np.all(perm >= 0) and np.all(perm < simple_combit.dim)
+    # Check that we have the same elements, just reordered
+    assert np.allclose(np.sort(simple_combit.state), np.sort(original_state))
 
 
 def test_observe_and_call(simple_combit):
