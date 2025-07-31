@@ -25,6 +25,8 @@ import time
 import numpy as np
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Tuple, Optional
+from collections import deque
+import math
 
 @dataclass(slots=True)
 class CASetup:
@@ -47,6 +49,9 @@ class CARule:
     name: str
     func: Callable = field(default_factory=lambda: play_pascal)
     active: bool = True
+    history: deque[int] = field(default_factory=lambda: deque(maxlen=10))
+    points: float = 0.0
+    mass: float = 1.0
 
 
 @dataclass(slots=True)
@@ -71,9 +76,16 @@ class CAEngine:
     players: list[CARule] = field(default_factory=lambda: [CARule(name='pascal', func=play_pascal, active=True)])
     objectives: list[CARule] = field(default_factory=lambda: [])
     weights: list[float] = field(default_factory=lambda: [1.0])
+    history_len: int = 10
+    sigma: float = 1.0
+    zoom: Optional['GoldenSpiralZoom'] = None
 
     def __post_init__(self):
         self._rebalance_weights()
+        for p in self.players:
+            p.history = deque(maxlen=self.history_len)
+            p.points = 0.0
+            p.mass = 1.0
             
     def player(self, name: str) -> CARule | None:
         """Get a player by name"""
@@ -165,7 +177,7 @@ class CAEngine:
             return np.any([a.func(grid) for a in self.active_objectives], axis=0, keepdims=True)
         return np.packbits([1])
     
-    def generate(self, place: np.ndarray = None) -> "CAGame":
+    def generate(self, place: Optional[np.ndarray] = None) -> "CAGame":
         """
         Generate CA evolution using player rules.
         
@@ -222,6 +234,8 @@ class CAEngine:
         # Evolve parameters based on objective performance
         if len(performance) > 0:
             self.evolve_parameters(performance_score)
+        # Cooperative gain distribution
+        distribute_points(self.active_players, performance_score, self.sigma)
         
         return CAGame(signatures, performance, grid, time.time() - start)
     
@@ -294,6 +308,66 @@ def play_pascal(history: np.ndarray, neighborhood: np.ndarray) -> np.ndarray:
 def play_pascal911(history: np.ndarray, neighborhood: np.ndarray) -> np.ndarray:
     """Overflow prevention 9 + 1 -> 1 rule in base 10"""
     return clip(play_pascal, 10)(history, neighborhood)
+
+# --------------------------------------------------------------------
+# Advanced Engine Utilities – golden-spiral zoom, decorators, scoring
+# --------------------------------------------------------------------
+
+
+class GoldenSpiralZoom:
+    """Golden-spiral expansion for cellular automata grids."""
+
+    def __init__(self, a: float = 1.0, b: float = 0.05, dtheta: float = math.radians(137.5)):
+        self.a = a
+        self.b = b
+        self.dtheta = dtheta
+
+    def _offset(self, step: int) -> tuple[int, int]:
+        theta = step * self.dtheta
+        r = self.a * math.exp(self.b * theta)
+        dx = int(round(r * math.cos(theta)))
+        dy = int(round(r * math.sin(theta)))
+        return dy, dx  # row, col order
+
+    def map(self, coords: np.ndarray, step: int) -> np.ndarray:
+        """Vectorised coordinate shift for the given step."""
+        if coords.size == 0:
+            return coords
+        dy, dx = self._offset(step)
+        return coords + np.array([dy, dx])
+
+    def mask(self, coords: np.ndarray, step: int) -> np.ndarray:
+        """All-pass mask by default – override for pruning."""
+        return np.ones(len(coords), dtype=bool)
+
+
+def view(radius: int):
+    """Decorator to annotate rule functions with a view radius."""
+    def decorator(f):
+        f._view_radius = radius
+        return f
+    return decorator
+
+
+def distribute_points(players: list[CARule], global_gain: float, sigma: float = 1.0):
+    """Softmax-like distribution of cooperative gain across players."""
+    if not players:
+        return
+    scores = np.array([p.points for p in players], dtype=float)
+    if np.allclose(scores, 0):
+        weights = np.full_like(scores, 1 / len(players), dtype=float)
+    else:
+        weights = np.exp(scores / (sigma + 1e-9))
+        weights_sum = weights.sum()
+        weights /= weights_sum if weights_sum else 1.0
+    for p, w in zip(players, weights):
+        p.mass += global_gain * w
+        p.points += global_gain * w
+
+
+# Back-compatibility aliases
+pascal_player = play_pascal
+pascal911 = play_pascal911
 
 def diversity_objective(grid: np.ndarray) -> np.ndarray:
     """Default objective: maximize pattern diversity"""

@@ -1,3 +1,4 @@
+from .combinion import Combinion  # type: ignore  # re-export
 from .operators import convolve_op
 from typing import Iterable, Callable, Union
 import numpy as np
@@ -105,7 +106,7 @@ def render_template_ca(template, values, indices):
     return result
 
 
-class Combit:
+class Combit(Combinion):
     """Combit: A combinatorial base for structured signal transformation and functional encoding.
 
     This class implements a hybrid system that combines Pascal triangle structures with cyclotomic field 
@@ -198,6 +199,47 @@ class Combit:
         indices = jnp.argsort(energy)[:self.dim]
         template_op = create_template_operator(self.state, indices)
         self.state = template_op(self.state)
+
+    def entropy(self) -> float:
+        """Shannon entropy of the (magnitude-normalised) state."""
+        mag = jnp.abs(self.state)
+        p = mag / (jnp.sum(mag) + 1e-12)
+        return float(-jnp.sum(p * jnp.log(p + 1e-12)))
+
+    def optimise(self, target: jnp.ndarray, *, steps: int = 200, alpha: float = 0.5, step_size: float = 0.1) -> list[float]:
+        """Minimise Gibbs-like free energy G = U − τ·S by rotating state.
+
+        U = mean-square error between current state and target.
+        S = Shannon entropy of |state|.
+        τ is set once from the seed: τ = alpha·U0/S0.
+        """
+        losses: list[float] = []
+
+        def mse(a, b):
+            return float(jnp.mean((a - b) ** 2))
+
+        curr_loss = mse(self.state, target)
+        tau = alpha * curr_loss / max(self.entropy(), 1e-12)
+
+        rng = np.random.default_rng()
+        for _ in range(steps):
+            # propose small additive noise as a simple perturbation
+            perturb = jnp.array(rng.normal(
+                scale=step_size, size=self.state.shape))
+            prev_state = self.state
+            prev_entropy = self.entropy()
+            self.state = self.state + perturb
+            trial_loss = mse(self.state, target)
+            new_entropy = self.entropy()
+            delta_g = (trial_loss - curr_loss) - tau * \
+                (new_entropy - prev_entropy)
+            # Accept if improves G or probabilistically
+            if delta_g < 0 or rng.random() < np.exp(-delta_g):
+                curr_loss = trial_loss
+                losses.append(curr_loss)
+            else:
+                self.state = prev_state
+        return losses
 
     def observe(self, X, Y, lr=1e-3):
         signal = padded(self.state, Y)

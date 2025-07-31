@@ -157,18 +157,17 @@ class GravTree(Generic[T]):
         return kernel
     
     def generate_attention_mask(self, text_length: int) -> np.ndarray:
-        """Generate attention mask for geometric focus"""
+        """Generate a smooth attention mask (Gaussian window)."""
         root_state = self.root.quat
-        
-        # Use quaternion components for mask parameters
+
+        # Parameters derived from quaternion
         focus_intensity = abs(root_state[0])
-        focus_center = int(abs(root_state[1]) * text_length)
+        focus_center = int(abs(root_state[1]) * (text_length - 1))
         focus_width = max(1, int(abs(root_state[2]) * text_length / 4))
-        focus_phase = root_state[3] * np.pi
-        
-        # Generate geometric attention mask
-        intensity = focus_intensity * (np.cos(2 * np.pi) + focus_phase)
-        mask = intensity * (focus_center - np.arange(text_length) / focus_width)        
+
+        positions = np.arange(text_length)
+        mask = focus_intensity * \
+            np.exp(-((positions - focus_center) ** 2) / (2 * focus_width ** 2))
         return mask
     
     def convolve_text(self, text: str, kernel: np.ndarray) -> np.ndarray:
@@ -176,25 +175,64 @@ class GravTree(Generic[T]):
         geometry = self.text_to_geometry(text)
         
         # Apply convolution in geometric space
-        kernel_radius = len(kernel) // 2
-        return np.kron(geometry, kernel * kernel_radius)
+        return np.convolve(geometry, kernel, mode="same")
     
-    def detect_patterns(self, text: str) -> List[Tuple[np.ndarray, float]]:
+    def detect_patterns(self, text: str) -> List[Tuple[int, float]]:
         """Detect patterns using convolution kernels and attention masks"""
-        # Generate kernel and mask
-        kernel = self.generate_kernel()
-        focused = np.kron(convolved, mask)
-        
-        # Find patterns (peaks in focused signal)
-        patterns = []
-        threshold = np.mean(focused) + np.std(focused)
-        retu[focused > threshold])]
-
-    def generate_patterns(self, text: str) -> List[Tuple[str, float]]:
-        """Generate patterns from geometric text"""
-        # Generate kernel and mask
         kernel = self.generate_kernel()
         mask = self.generate_attention_mask(len(text))
+        convolved = self.convolve_text(text, kernel)
+        focused = convolved * mask
+
+        # Detect peaks above threshold
+        threshold = np.mean(focused) + np.std(focused)
+        peak_indices = np.where(focused > threshold)[0]
+        return [(int(idx), float(focused[idx])) for idx in peak_indices]
+
+    def generate_patterns(self, text: str) -> List[Tuple[str, float]]:
+        """Return (character, score) pairs for detected pattern peaks."""
+        peaks = self.detect_patterns(text)
+        return [(text[idx], score) for idx, score in peaks]
+
+    def gainloss(self, target_kernel: np.ndarray, *, steps, step_size: float = 0.15, T: float = 1.0) -> List[float]:
+        """Simulated-annealing optimiser that tweaks the root quaternion so the
+        generated kernel matches ``target_kernel``.
+
+        Returns the loss history (MSE per step). The routine is deliberately
+        tiny—no external dependencies, single quaternion rotation per step.
+        """
+        losses: list[float] = []
+        klen = len(target_kernel)
+        axes = ('i', 'j', 'k')
+
+        def mse(a, b):
+            return float(np.mean((a - b) ** 2))
+
+        curr_kernel = self.generate_kernel(klen)
+        curr_loss = mse(curr_kernel, target_kernel)
+        losses.append(curr_loss)
+
+        for _ in range(steps):
+            axis = np.random.choice(axes)
+            angle = np.random.normal(scale=step_size)
+
+            # Backup quaternion, apply trial rotation
+            prev_quat = self.root.quat.copy()
+            self.root.rotate(axis, angle)
+            trial_kernel = self.generate_kernel(klen)
+            trial_loss = mse(trial_kernel, target_kernel)
+
+            accept = trial_loss < curr_loss or np.random.rand(
+            ) < np.exp(-(trial_loss - curr_loss) / T
+                       if accept:
+                       curr_loss=trial_loss
+                       losses.append(curr_loss)
+                       else:
+                       # Revert rotation
+                       self.root.quat=prev_quat
+
+                       return losses
+
     def evolve(self, loss: float) -> Optional[Tuple[np.ndarray, np.ndarray]]:
         """Evolve using geometric pattern detection"""
         if self.entropy:
@@ -230,7 +268,6 @@ class GravTree(Generic[T]):
         )
         
         return data
-        return qq
     
     def reset(self) -> None:
         """Reset the quadtree to initial state"""
@@ -251,9 +288,36 @@ class GravTree(Generic[T]):
         self.entropy.clear()
         self.patterns.clear()
 
-# Example usage:
-qq = GravTree()
-patterns = qq.detect_patterns("quantum geometric convolution")
-kernel, mask = qq.evolve(0.1)
+
+                if __name__ == "__main__":
+
+                qq=GravTree()
+                sample="quantum geometric convolution"
+                print("Detected patterns:", qq.generate_patterns(sample))
+                evolved=qq.evolve(0.1)
+                if evolved is not None:
+        kernel, mask=evolved
+        print("Kernel:", kernel, "Mask:", mask)
+
+                __all__=["GravTree"]
+
+                qq=GravTree()
+                sample="quantum geometric convolution"
+                print("Detected patterns:", qq.generate_patterns(sample))
+                evolved=qq.evolve(0.1)
+                if evolved is not None:
+        kernel, mask=evolved
+        print("Kernel:", kernel, "Mask:", mask)
+
+                qq=GravTree()
+                (data.decode("utf-8"))
+
+                evolved=qq.evolve(0.1)
+                if evolved is not None:
+        kernel, mask=evolved
+        print("Kernel:", kernel, "Mask:", mask)
+
+
+
 
 __all__ = ["GravTree"]
