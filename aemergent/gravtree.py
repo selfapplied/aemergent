@@ -183,12 +183,14 @@ class GravTree(Generic[T]):
         """Detect patterns using convolution kernels and attention masks"""
         # Generate kernel and mask
         kernel = self.generate_kernel()
+        mask = self.generate_attention_mask(len(text))
+        convolved = self.convolve_text(text, kernel)
         focused = np.kron(convolved, mask)
         
         # Find patterns (peaks in focused signal)
         patterns = []
         threshold = np.mean(focused) + np.std(focused)
-        retu[focused > threshold])]
+        return [(focused[focused > threshold], threshold)]
 
     def generate_patterns(self, text: str) -> List[Tuple[str, float]]:
         """Generate patterns from geometric text"""
@@ -254,6 +256,8 @@ class GravTree(Generic[T]):
 # Example usage:
 qq = GravTree()
 patterns = qq.detect_patterns("quantum geometric convolution")
-kernel, mask = qq.evolve(0.1)
+result = qq.evolve(0.1)
+if result is not None:
+    kernel, mask = result
 
 __all__ = ["GravTree"]
