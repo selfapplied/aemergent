@@ -190,7 +190,15 @@ class GravTree(Generic[T]):
         # Find patterns (peaks in focused signal)
         patterns = []
         threshold = np.mean(focused) + np.std(focused)
-        return [(focused[focused > threshold], threshold)]
+        for i, value in enumerate(focused):
+            if value > threshold:
+                # Extract a small region around the peak for the pattern
+                start = max(0, i - 1)
+                end = min(len(focused), i + 2)
+                pattern = focused[start:end]
+                patterns.append((pattern, threshold))
+        
+        return patterns
 
     def generate_patterns(self, text: str) -> List[Tuple[str, float]]:
         """Generate patterns from geometric text"""
