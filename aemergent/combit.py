@@ -204,12 +204,6 @@ class Combit:
         indices = jnp.argsort(energy)
         # Apply permutation by reordering state elements
         self.state = self.state[indices]
-            energy = energy[:self.order]
-        
-        # Get permutation indices (sorted by energy)
-        indices = jnp.argsort(energy)
-        # Apply permutation by reordering state elements
-        self.state = self.state[indices]
 
     def observe(self, X, Y, lr=1e-3):
         signal = padded(self.state, Y)
