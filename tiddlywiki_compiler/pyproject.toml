@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wikic"
+version = "1.0.0"
+description = "TiddlyWiki compiler with distance-metric optimization"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "aemergent", email = "aemergent@example.com" }
+]
+dependencies = [
+    "numpy>=1.21.0",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "black>=22.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+wikic = "wikic:main"
+
+[project.urls]
+Homepage = "https://github.com/aemergent/wikic"
+Repository = "https://github.com/aemergent/wikic"
+Documentation = "https://github.com/aemergent/wikic/blob/main/README.md"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.isort]
+known-first-party = ["wikic"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

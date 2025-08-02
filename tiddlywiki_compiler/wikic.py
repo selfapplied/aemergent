@@ -33,10 +33,10 @@ def main():
     
     # Optional flags
     parser.add_argument('-h', '--help', action='help', help='Show this help message')
-    parser.add_argument('--no-compression', action='store_true', help='Disable compression')
+    parser.add_argument('-c', '--no-compression', action='store_true', help='Disable compression')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
-    parser.add_argument('--optimize', action='store_true', help='Generate optimal wiki using distance-metric theory')
-    parser.add_argument('--disassemble', action='store_true', help='Disassemble existing wiki instead of creating one')
+    parser.add_argument('-o', '--optimize', action='store_true', help='Generate optimal wiki using distance-metric theory')
+    parser.add_argument('-d', '--disassemble', action='store_true', help='Disassemble existing wiki instead of creating one')
     parser.add_argument('--version', action='version', version='wikic 1.0.0')
     
     # Handle no arguments
@@ -49,9 +49,9 @@ def main():
         print("  wikic project.html src/         # Compile src/ directory")
         print("")
         print("Options:")
-        print("  --no-compression               # Disable compression")
-        print("  --optimize                     # Generate optimal wiki using distance-metric theory")
-        print("  --disassemble                  # Disassemble existing wiki file")
+        print("  -c, --no-compression           # Disable compression")
+        print("  -o, --optimize                 # Generate optimal wiki using distance-metric theory")
+        print("  -d, --disassemble              # Disassemble existing wiki file")
         print("  -v, --verbose                  # Verbose output")
         print("  -h, --help                     # Show help")
         print("  --version                      # Show version")
@@ -59,8 +59,8 @@ def main():
         print("Examples:")
         print("  wikic docs.html .              # Current directory -> docs.html")
         print("  wikic research.html papers/    # papers/ -> research.html")
-        print("  wikic optimal.html data/ --optimize    # Optimized wiki")
-        print("  wikic extracted/ wiki.html --disassemble  # Extract from wiki")
+        print("  wikic optimal.html data/ -o    # Optimized wiki")
+        print("  wikic extracted/ wiki.html -d  # Extract from wiki")
         sys.exit(0)
     
     args = parser.parse_args()
@@ -97,7 +97,7 @@ def main():
                 print(f"  extracted: {tiddler_count} tiddlers -> {output_dir}")
             
         except ImportError:
-            print("Error: numpy required for disassembly. Install with: pip install numpy")
+            print("Error: numpy required for disassembly. Install with: uv add numpy")
             sys.exit(1)
         except Exception as e:
             print(f"wikic: disassembly error: {e}")
@@ -152,7 +152,7 @@ def main():
                         print(f"  optimized: {tiddler_count} tiddlers in {cluster_count} clusters -> {output_file}")
                 
                 except ImportError:
-                    print("Error: numpy required for optimization. Install with: pip install numpy")
+                    print("Error: numpy required for optimization. Install with: uv add numpy")
                     sys.exit(1)
             
             else:
