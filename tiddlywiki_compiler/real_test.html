@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Compiled Wiki</title>
+<script>
+var $tw = {
+    preloadTiddlers: [
+  {
+    "title": "algorithms",
+    "text": "# Sample algo\ndef factorial(n):\n    \"\"\"\n    Compute factorial using recursive algo\n    Time complexity: O(n)\n    Space complexity: O(n) due to recursion\n    \"\"\"\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\ndef fibonacci(n):\n    \"\"\"\n    Compute Fibonacci number\n    Demonstrates exponential growth pattern\n    \"\"\"\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\n# Example usage\nprint(f\"5! = {factorial(5)}\")\nprint(f\"F(10) = {fibonacci(10)}\")\n",
+    "tags": "demo code text py compressed",
+    "type": "text/plain",
+    "created": "20250802083156723",
+    "modified": "20250802083156723"
+  },
+  {
+    "title": "introduction",
+    "text": "# Welcome to the math Wiki\n\nThis wiki demonstrates the TiddlyWiki compiler's ability to structure and organize math content.\n\n## Features\n\n- **Automatic tagging** based on content patterns\n- **Distance-metric compression** using blockprimes concepts  \n- **Structured tiddlers** with summaries and key concepts\n- **Interactive filtering** by tags and search\n\n## Sample Content\n\nThe blockprimes.md file has been automatically broken down into multiple tiddlers, each with:\n- Summary sections\n- Key concept extraction\n- Automatic tagging (proof, demo, question, etc.)\n- Follow-up question detection\n\n**Example**: math proofs are automatically tagged as \"proof\" and formatted with special styling.\n\nWhat patterns will you discover in your own content?\n",
+    "tags": "proof demo question text md compressed",
+    "type": "text/x-markdown",
+    "created": "20250802083156723",
+    "modified": "20250802083156723"
+  },
+  {
+    "title": "concepts",
+    "text": "Key math Concepts\n\nPrime Numbers: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29...\nFibonacci Sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34...\nFactorials: 1, 2, 6, 24, 120, 720...\n\nDistance Metrics:\n- Euclidean: d(x,y) = \u221a(\u03a3(xi-yi)\u00b2)\n- Manhattan: d(x,y) = \u03a3|xi-yi|\n- Hamming: number of differing positions\n\nComputational Complexity:\n- O(1): constant time\n- O(log n): logarithmic \n- O(n): linear time\n- O(n log n): linearithmic\n- O(n\u00b2): quadratic time\n\nWhat relationships exist between these concepts?\n",
+    "tags": "question text txt compressed",
+    "type": "text/plain",
+    "created": "20250802083156723",
+    "modified": "20250802083156723"
+  },
+  {
+    "title": "blockprimes: Blockprimes: Computational Distance Metrics",
+    "text": "!! Summary\n\n\n!! Key Concepts\nDistance\n\n!! Content\n# Blockprimes: Computational Distance Metrics\n\n\n!! Tags\nblockprimes blockprimes number-theory",
+    "tags": "blockprimes blockprimes number-theory",
+    "type": "text/x-markdown",
+    "created": "20250802083156724",
+    "modified": "20250802083156724",
+    "summary": "",
+    "key_concepts": "Distance",
+    "question_count": 0,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Introduction",
+    "text": "!! Summary\nBlock primes represent a novel approach to computational distance measurement in mathematical spaces. By encoding prime factorizations as spatial coordinates, we can transform number theory problems into geometric optimization challenges. The fundamental insight is that every composite number n can be represented as a point in prime-factorization space, where coordinates correspond to prime powers: n = p\u2081^a\u2081 \u00d7 p\u2082^a\u2082 \u00d7 ... \u00d7 p\u2096^a\u2096. **Proof Pattern**: Given any composite number n, its unique prime factorization provides coordinates (a\u2081, a\u2082, ..., a\u2096) in \u2124\u1d4f space. What computational patterns emerge when we measure distances between these points?\n\n!! Key Concepts\nfactorization, prime, distance, Proof Pattern, Proof\n\n!! Content\n## Introduction\nBlock primes represent a novel approach to computational distance measurement in mathematical spaces. By encoding prime factorizations as spatial coordinates, we can transform number theory problems into geometric optimization challenges.\n\nThe fundamental insight is that every composite number n can be represented as a point in prime-factorization space, where coordinates correspond to prime powers: n = p\u2081^a\u2081 \u00d7 p\u2082^a\u2082 \u00d7 ... \u00d7 p\u2096^a\u2096.\n\n**Proof Pattern**: Given any composite number n, its unique prime factorization provides coordinates (a\u2081, a\u2082, ..., a\u2096) in \u2124\u1d4f space.\n\nWhat computational patterns emerge when we measure distances between these points?\n\n\n!! Tags\nproof question blockprimes blockprimes distance-metric number-theory follow-up",
+    "tags": "proof question blockprimes blockprimes distance-metric number-theory follow-up",
+    "type": "text/x-markdown",
+    "created": "20250802083156724",
+    "modified": "20250802083156724",
+    "summary": "Block primes represent a novel approach to computational distance measurement in mathematical spaces. By encoding prime factorizations as spatial coordinates, we can transform number theory problems into geometric optimization challenges. The fundamental insight is that every composite number n can be represented as a point in prime-factorization space, where coordinates correspond to prime powers: n = p\u2081^a\u2081 \u00d7 p\u2082^a\u2082 \u00d7 ... \u00d7 p\u2096^a\u2096. **Proof Pattern**: Given any composite number n, its unique prime factorization provides coordinates (a\u2081, a\u2082, ..., a\u2096) in \u2124\u1d4f space. What computational patterns emerge when we measure distances between these points?",
+    "key_concepts": "factorization, prime, distance, Proof Pattern, Proof",
+    "question_count": 1,
+    "has_proof": true,
+    "has_demo": false,
+    "complexity_level": "intermediate"
+  },
+  {
+    "title": "blockprimes: Distance Metrics in Prime Space",
+    "text": "!! Summary\n\n\n!! Key Concepts\nDistance, Prime\n\n!! Content\n## Distance Metrics in Prime Space\n\n\n!! Tags\nblockprimes blockprimes number-theory",
+    "tags": "blockprimes blockprimes number-theory",
+    "type": "text/x-markdown",
+    "created": "20250802083156724",
+    "modified": "20250802083156724",
+    "summary": "",
+    "key_concepts": "Distance, Prime",
+    "question_count": 0,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Euclidean Distance",
+    "text": "!! Summary\nFor numbers m = \u220fp\u1d62^a\u1d62 and n = \u220fp\u1d62^b\u1d62, the Euclidean distance is: d_E(m,n) = \u221a(\u2211(a\u1d62 - b\u1d62)\u00b2) **Demo**: Let m = 12 = 2\u00b2 \u00d7 3\u00b9 and n = 18 = 2\u00b9 \u00d7 3\u00b2. Then: - Coordinates: m \u2192 (2,1), n \u2192 (1,2)   - Distance: d_E(12,18) = \u221a((2-1)\u00b2 + (1-2)\u00b2) = \u221a2 This metric preserves multiplicative structure while enabling geometric reasoning. Can we use this distance to predict computational complexity of factorization algorithms?\n\n!! Key Concepts\nfactorization, Distance, distance, metric, complexity, Demo, d_E\n\n!! Content\n### Euclidean Distance\nFor numbers m = \u220fp\u1d62^a\u1d62 and n = \u220fp\u1d62^b\u1d62, the Euclidean distance is:\nd_E(m,n) = \u221a(\u2211(a\u1d62 - b\u1d62)\u00b2)\n\n**Demo**: Let m = 12 = 2\u00b2 \u00d7 3\u00b9 and n = 18 = 2\u00b9 \u00d7 3\u00b2. Then:\n- Coordinates: m \u2192 (2,1), n \u2192 (1,2)  \n- Distance: d_E(12,18) = \u221a((2-1)\u00b2 + (1-2)\u00b2) = \u221a2\n\nThis metric preserves multiplicative structure while enabling geometric reasoning.\n\nCan we use this distance to predict computational complexity of factorization algorithms?\n\n\n!! Tags\ndemo question blockprimes blockprimes demo distance-metric number-theory follow-up complexity",
+    "tags": "demo question blockprimes blockprimes demo distance-metric number-theory follow-up complexity",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "For numbers m = \u220fp\u1d62^a\u1d62 and n = \u220fp\u1d62^b\u1d62, the Euclidean distance is: d_E(m,n) = \u221a(\u2211(a\u1d62 - b\u1d62)\u00b2) **Demo**: Let m = 12 = 2\u00b2 \u00d7 3\u00b9 and n = 18 = 2\u00b9 \u00d7 3\u00b2. Then: - Coordinates: m \u2192 (2,1), n \u2192 (1,2)   - Distance: d_E(12,18) = \u221a((2-1)\u00b2 + (1-2)\u00b2) = \u221a2 This metric preserves multiplicative structure while enabling geometric reasoning. Can we use this distance to predict computational complexity of factorization algorithms?",
+    "key_concepts": "factorization, Distance, distance, metric, complexity, Demo, d_E",
+    "question_count": 1,
+    "has_proof": false,
+    "has_demo": true,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Manhattan Distance",
+    "text": "!! Summary\nThe L\u00b9 distance captures additive complexity: d_M(m,n) = \u2211|a\u1d62 - b\u1d62| **Example**: For the same m=12, n=18: d_M(12,18) = |2-1| + |1-2| = 2 **Theorem**: Manhattan distance in prime space equals the minimum number of prime factor modifications to transform m into n. **Proof**: Each unit of Manhattan distance corresponds to incrementing or decrementing a single prime power by 1. How does this relate to edit distance in computational strings?\n\n!! Key Concepts\nprime, Distance, d_M, Example, distance, complexity, Theorem, Proof\n\n!! Content\n### Manhattan Distance\nThe L\u00b9 distance captures additive complexity:\nd_M(m,n) = \u2211|a\u1d62 - b\u1d62|\n\n**Example**: For the same m=12, n=18:\nd_M(12,18) = |2-1| + |1-2| = 2\n\n**Theorem**: Manhattan distance in prime space equals the minimum number of prime factor modifications to transform m into n.\n\n**Proof**: Each unit of Manhattan distance corresponds to incrementing or decrementing a single prime power by 1.\n\nHow does this relate to edit distance in computational strings?\n\n\n!! Tags\nproof demo question blockprimes blockprimes proof demo distance-metric number-theory follow-up complexity",
+    "tags": "proof demo question blockprimes blockprimes proof demo distance-metric number-theory follow-up complexity",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "The L\u00b9 distance captures additive complexity: d_M(m,n) = \u2211|a\u1d62 - b\u1d62| **Example**: For the same m=12, n=18: d_M(12,18) = |2-1| + |1-2| = 2 **Theorem**: Manhattan distance in prime space equals the minimum number of prime factor modifications to transform m into n. **Proof**: Each unit of Manhattan distance corresponds to incrementing or decrementing a single prime power by 1. How does this relate to edit distance in computational strings?",
+    "key_concepts": "prime, Distance, d_M, Example, distance, complexity, Theorem, Proof",
+    "question_count": 1,
+    "has_proof": true,
+    "has_demo": true,
+    "complexity_level": "intermediate"
+  },
+  {
+    "title": "blockprimes: Computational Shortcuts via Distance",
+    "text": "!! Summary\n\n\n!! Key Concepts\nDistance\n\n!! Content\n## Computational Shortcuts via Distance\n\n\n!! Tags\nblockprimes blockprimes",
+    "tags": "blockprimes blockprimes",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "",
+    "key_concepts": "Distance",
+    "question_count": 0,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Pattern Recognition",
+    "text": "!! Summary\nNumbers with small mutual distances often share computational properties: **Demo**: Consider the sequence 8, 12, 18, 24: - 8 = 2\u00b3 \u2192 (3,0) - 12 = 2\u00b2 \u00d7 3\u00b9 \u2192 (2,1)   - 18 = 2\u00b9 \u00d7 3\u00b2 \u2192 (1,2) - 24 = 2\u00b3 \u00d7 3\u00b9 \u2192 (3,1) The Manhattan distances form a pattern: d_M(8,12)=2, d_M(12,18)=2, d_M(18,24)=3. This suggests optimization strategies for batch factorization.\n\n!! Key Concepts\nd_M, Demo, factorization\n\n!! Content\n### Pattern Recognition\nNumbers with small mutual distances often share computational properties:\n\n**Demo**: Consider the sequence 8, 12, 18, 24:\n- 8 = 2\u00b3 \u2192 (3,0)\n- 12 = 2\u00b2 \u00d7 3\u00b9 \u2192 (2,1)  \n- 18 = 2\u00b9 \u00d7 3\u00b2 \u2192 (1,2)\n- 24 = 2\u00b3 \u00d7 3\u00b9 \u2192 (3,1)\n\nThe Manhattan distances form a pattern: d_M(8,12)=2, d_M(12,18)=2, d_M(18,24)=3.\n\nThis suggests optimization strategies for batch factorization.\n\n\n!! Tags\ndemo blockprimes blockprimes demo distance-metric number-theory",
+    "tags": "demo blockprimes blockprimes demo distance-metric number-theory",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "Numbers with small mutual distances often share computational properties: **Demo**: Consider the sequence 8, 12, 18, 24: - 8 = 2\u00b3 \u2192 (3,0) - 12 = 2\u00b2 \u00d7 3\u00b9 \u2192 (2,1)   - 18 = 2\u00b9 \u00d7 3\u00b2 \u2192 (1,2) - 24 = 2\u00b3 \u00d7 3\u00b9 \u2192 (3,1) The Manhattan distances form a pattern: d_M(8,12)=2, d_M(12,18)=2, d_M(18,24)=3. This suggests optimization strategies for batch factorization.",
+    "key_concepts": "d_M, Demo, factorization",
+    "question_count": 0,
+    "has_proof": false,
+    "has_demo": true,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Compression Through Distance",
+    "text": "!! Summary\nInstead of storing full factorizations, we can encode: 1. A reference point (anchor factorization) 2. Distance vectors to nearby numbers **Algorithm**:  ``` function encode_block(numbers):     anchor = geometric_median(numbers)     return [anchor, [distance_vector(n, anchor) for n in numbers]] ``` What is the compression ratio compared to naive storage?\n\n!! Key Concepts\nDistance, Algorithm, factorization\n\n!! Content\n### Compression Through Distance\nInstead of storing full factorizations, we can encode:\n1. A reference point (anchor factorization)\n2. Distance vectors to nearby numbers\n\n**Algorithm**: \n```\nfunction encode_block(numbers):\n    anchor = geometric_median(numbers)\n    return [anchor, [distance_vector(n, anchor) for n in numbers]]\n```\n\nWhat is the compression ratio compared to naive storage?\n\n\n!! Tags\nquestion code blockprimes blockprimes algorithm distance-metric number-theory follow-up complexity",
+    "tags": "question code blockprimes blockprimes algorithm distance-metric number-theory follow-up complexity",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "Instead of storing full factorizations, we can encode: 1. A reference point (anchor factorization) 2. Distance vectors to nearby numbers **Algorithm**:  ``` function encode_block(numbers):     anchor = geometric_median(numbers)     return [anchor, [distance_vector(n, anchor) for n in numbers]] ``` What is the compression ratio compared to naive storage?",
+    "key_concepts": "Distance, Algorithm, factorization",
+    "question_count": 1,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "intermediate"
+  },
+  {
+    "title": "blockprimes: Applications to Cryptography",
+    "text": "!! Summary\n\n\n!! Key Concepts\n\n\n!! Content\n## Applications to Cryptography\n\n\n!! Tags\nblockprimes blockprimes security",
+    "tags": "blockprimes blockprimes security",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "",
+    "key_concepts": "",
+    "question_count": 0,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "advanced"
+  },
+  {
+    "title": "blockprimes: RSA Key Distance Analysis",
+    "text": "!! Summary\nFor RSA moduli N\u2081 = p\u2081q\u2081 and N\u2082 = p\u2082q\u2082, the distance d(N\u2081,N\u2082) reveals structural similarity. **Security Implication**: If d(N\u2081,N\u2082) < threshold, the keys may share vulnerabilities. **Proof Sketch**: Close distances imply similar prime structures, potentially enabling cross-key attacks through shared factorization shortcuts. **Example**: If N\u2081 = 77 = 7\u00d711 and N\u2082 = 91 = 7\u00d713, they share the prime 7, leading to gcd(N\u2081,N\u2082) = 7. Could we develop distance-based RSA key validation?\n\n!! Key Concepts\nprime, Distance, factorization, Example, distance, Proof Sketch, Security Implication, Proof\n\n!! Content\n### RSA Key Distance Analysis\nFor RSA moduli N\u2081 = p\u2081q\u2081 and N\u2082 = p\u2082q\u2082, the distance d(N\u2081,N\u2082) reveals structural similarity.\n\n**Security Implication**: If d(N\u2081,N\u2082) < threshold, the keys may share vulnerabilities.\n\n**Proof Sketch**: Close distances imply similar prime structures, potentially enabling cross-key attacks through shared factorization shortcuts.\n\n**Example**: If N\u2081 = 77 = 7\u00d711 and N\u2082 = 91 = 7\u00d713, they share the prime 7, leading to gcd(N\u2081,N\u2082) = 7.\n\nCould we develop distance-based RSA key validation?\n\n\n!! Tags\nproof demo question blockprimes blockprimes demo security distance-metric number-theory follow-up",
+    "tags": "proof demo question blockprimes blockprimes demo security distance-metric number-theory follow-up",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "For RSA moduli N\u2081 = p\u2081q\u2081 and N\u2082 = p\u2082q\u2082, the distance d(N\u2081,N\u2082) reveals structural similarity. **Security Implication**: If d(N\u2081,N\u2082) < threshold, the keys may share vulnerabilities. **Proof Sketch**: Close distances imply similar prime structures, potentially enabling cross-key attacks through shared factorization shortcuts. **Example**: If N\u2081 = 77 = 7\u00d711 and N\u2082 = 91 = 7\u00d713, they share the prime 7, leading to gcd(N\u2081,N\u2082) = 7. Could we develop distance-based RSA key validation?",
+    "key_concepts": "prime, Distance, factorization, Example, distance, Proof Sketch, Security Implication, Proof",
+    "question_count": 1,
+    "has_proof": true,
+    "has_demo": true,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Fermat Number Connections",
+    "text": "!! Summary\n\n\n!! Key Concepts\n\n\n!! Content\n## Fermat Number Connections\n\n\n!! Tags\nblockprimes blockprimes number-theory",
+    "tags": "blockprimes blockprimes number-theory",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "",
+    "key_concepts": "",
+    "question_count": 0,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Distance to Fermat Numbers",
+    "text": "!! Summary\nFermat numbers F\u2099 = 2^(2\u207f) + 1 serve as reference points in prime space. **Observation**: Numbers near Fermat numbers in distance metric often exhibit special properties. **Demo**: F\u2080 = 3, F\u2081 = 5, F\u2082 = 17, F\u2083 = 257 Distance analysis reveals clustering around powers of 2. **Open Question**: Does proximity to Fermat numbers predict primality testing efficiency?\n\n!! Key Concepts\nObservation, prime, Distance, distance, metric, Demo, Open Question\n\n!! Content\n### Distance to Fermat Numbers\nFermat numbers F\u2099 = 2^(2\u207f) + 1 serve as reference points in prime space.\n\n**Observation**: Numbers near Fermat numbers in distance metric often exhibit special properties.\n\n**Demo**: F\u2080 = 3, F\u2081 = 5, F\u2082 = 17, F\u2083 = 257\nDistance analysis reveals clustering around powers of 2.\n\n**Open Question**: Does proximity to Fermat numbers predict primality testing efficiency?\n\n\n!! Tags\ndemo question blockprimes blockprimes demo distance-metric number-theory follow-up",
+    "tags": "demo question blockprimes blockprimes demo distance-metric number-theory follow-up",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "Fermat numbers F\u2099 = 2^(2\u207f) + 1 serve as reference points in prime space. **Observation**: Numbers near Fermat numbers in distance metric often exhibit special properties. **Demo**: F\u2080 = 3, F\u2081 = 5, F\u2082 = 17, F\u2083 = 257 Distance analysis reveals clustering around powers of 2. **Open Question**: Does proximity to Fermat numbers predict primality testing efficiency?",
+    "key_concepts": "Observation, prime, Distance, distance, metric, Demo, Open Question",
+    "question_count": 1,
+    "has_proof": false,
+    "has_demo": true,
+    "complexity_level": "basic"
+  },
+  {
+    "title": "blockprimes: Computational Implications",
+    "text": "!! Summary\nThe distance metric enables: 1. Predictive complexity analysis 2. Optimized factorization routes   3. Compression of mathematical objects 4. Pattern discovery in number sequences **Research Direction**: Can we extend this framework to algebraic integers and other mathematical structures?\n\n!! Key Concepts\nfactorization, Research Direction, distance, metric, complexity\n\n!! Content\n### Computational Implications\nThe distance metric enables:\n1. Predictive complexity analysis\n2. Optimized factorization routes  \n3. Compression of mathematical objects\n4. Pattern discovery in number sequences\n\n**Research Direction**: Can we extend this framework to algebraic integers and other mathematical structures?\n\n\n!! Tags\nquestion blockprimes blockprimes distance-metric number-theory follow-up complexity",
+    "tags": "question blockprimes blockprimes distance-metric number-theory follow-up complexity",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "The distance metric enables: 1. Predictive complexity analysis 2. Optimized factorization routes   3. Compression of mathematical objects 4. Pattern discovery in number sequences **Research Direction**: Can we extend this framework to algebraic integers and other mathematical structures?",
+    "key_concepts": "factorization, Research Direction, distance, metric, complexity",
+    "question_count": 1,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "advanced"
+  },
+  {
+    "title": "blockprimes: Conclusion",
+    "text": "!! Summary\nBlock prime distance metrics transform discrete number theory into continuous geometric optimization. This enables new computational shortcuts and reveals hidden patterns in mathematical structures. **Future Work**: Investigate distance-preserving transformations and their impact on algorithmic complexity. How might quantum computing change these distance relationships?\n\n!! Key Concepts\ncomplexity, distance, Future Work, prime\n\n!! Content\n## Conclusion\n\nBlock prime distance metrics transform discrete number theory into continuous geometric optimization. This enables new computational shortcuts and reveals hidden patterns in mathematical structures.\n\n**Future Work**: Investigate distance-preserving transformations and their impact on algorithmic complexity.\n\nHow might quantum computing change these distance relationships?\n\n!! Tags\nquestion blockprimes blockprimes distance-metric number-theory follow-up complexity",
+    "tags": "question blockprimes blockprimes distance-metric number-theory follow-up complexity",
+    "type": "text/x-markdown",
+    "created": "20250802083156725",
+    "modified": "20250802083156725",
+    "summary": "Block prime distance metrics transform discrete number theory into continuous geometric optimization. This enables new computational shortcuts and reveals hidden patterns in mathematical structures. **Future Work**: Investigate distance-preserving transformations and their impact on algorithmic complexity. How might quantum computing change these distance relationships?",
+    "key_concepts": "complexity, distance, Future Work, prime",
+    "question_count": 1,
+    "has_proof": false,
+    "has_demo": false,
+    "complexity_level": "intermediate"
+  },
+  {
+    "title": "theorem1",
+    "text": "# Fundamental Theorem of Arithmetic\n\n**Theorem**: Every integer greater than 1 is either prime or can be uniquely factored into prime numbers.\n\n**Proof**: \n1. Existence: Assume some integer n > 1 cannot be factored. \n2. Let S be the set of all such integers.\n3. By well-ordering, S has a minimum element m.\n4. Since m cannot be factored, m must be prime.\n5. This contradicts our assumption.\n\nTherefore, every integer can be factored into primes.\n\n**Demo**: 12 = 2\u00b2 \u00d7 3, 15 = 3 \u00d7 5, 30 = 2 \u00d7 3 \u00d7 5\n\nThis theorem is fundamental to number theory and cryptography.\n\nHow does this relate to the distance metrics in prime space?\n",
+    "tags": "proof demo question text md compressed",
+    "type": "text/x-markdown",
+    "created": "20250802083156726",
+    "modified": "20250802083156726"
+  }
+]
+};
+</script>
+</head>
+<body>
+<div id="tiddlywiki">
+<h1>Compiled Wiki</h1>
+<p>This wiki contains 18 tiddlers compiled from sample_content</p>
+</div>
+</body>
+</html>
