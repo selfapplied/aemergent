@@ -1,0 +1,19 @@
+Key Mathematical Concepts
+
+Prime Numbers: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29...
+Fibonacci Sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34...
+Factorials: 1, 2, 6, 24, 120, 720...
+
+Distance Metrics:
+- Euclidean: d(x,y) = √(Σ(xi-yi)²)
+- Manhattan: d(x,y) = Σ|xi-yi|
+- Hamming: number of differing positions
+
+Computational Complexity:
+- O(1): constant time
+- O(log n): logarithmic 
+- O(n): linear time
+- O(n log n): linearithmic
+- O(n²): quadratic time
+
+What relationships exist between these concepts?
