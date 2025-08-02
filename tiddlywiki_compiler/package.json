@@ -1,0 +1,15 @@
+{
+  "name": "tiddlywiki_compiler",
+  "version": "1.0.0",
+  "description": "A powerful tool for compiling files from directories into structured TiddlyWiki files with support for various media types, advanced compression, and intelligent content analysis.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tiddlywiki": "^5.3.7"
+  }
+}

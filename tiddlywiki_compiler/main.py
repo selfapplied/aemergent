@@ -81,7 +81,7 @@ class TiddlyWikiCompiler:
     def compress_content(self, content: str) -> str:
         """Apply blockprimes-style compression using distance metrics"""
         try:
-            from .compression import create_compressor
+            from compression import create_compressor
             compressor = create_compressor("hybrid")
             return compressor.compress(content)
         except ImportError:
@@ -313,8 +313,8 @@ class TiddlyWikiCompiler:
                     print(f"Error processing {file_path}: {e}")
     
     def generate_wiki_html(self) -> str:
-        """Generate the final TiddlyWiki HTML file"""
-        # Create the tiddlers JSON data
+        """Generate the final TiddlyWiki HTML file using real TiddlyWiki"""
+        # Create the tiddlers data
         tiddlers_data = []
         for tiddler in self.tiddlers:
             tiddler_dict = {
@@ -328,13 +328,21 @@ class TiddlyWikiCompiler:
             tiddler_dict.update(tiddler.fields)
             tiddlers_data.append(tiddler_dict)
         
-        # Use the advanced template
+        # Try to use real TiddlyWiki first
         try:
-            from .wiki_template import generate_tiddlywiki_html
-            return generate_tiddlywiki_html(tiddlers_data, f"Compiled Wiki - {self.source_dir.name}")
-        except ImportError:
-            # Fallback to basic template
-            html_template = f"""<!DOCTYPE html>
+            from real_wiki_template import generate_real_tiddlywiki
+            generate_real_tiddlywiki(tiddlers_data, self.output_file, f"Compiled Wiki - {self.source_dir.name}")
+            return f"Real TiddlyWiki generated: {self.output_file}"
+        except Exception as e:
+            print(f"Warning: Could not generate real TiddlyWiki ({e}), falling back to basic template")
+            
+            # Fallback to our custom template
+            try:
+                from wiki_template import generate_tiddlywiki_html
+                return generate_tiddlywiki_html(tiddlers_data, f"Compiled Wiki - {self.source_dir.name}")
+            except ImportError:
+                # Final fallback to basic template
+                html_template = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -352,18 +360,22 @@ var $tw = {{
 </div>
 </body>
 </html>"""
-            
-            return html_template
+                
+                return html_template
     
     def compile(self):
         """Main compilation method"""
         print(f"Compiling directory: {self.source_dir}")
         self.compile_directory()
         
-        html_content = self.generate_wiki_html()
+        result = self.generate_wiki_html()
         
-        with open(self.output_file, 'w', encoding='utf-8') as f:
-            f.write(html_content)
+        # Check if generate_wiki_html directly created the file (real TiddlyWiki)
+        # or returned HTML content (fallback templates)
+        if not result.startswith("Real TiddlyWiki generated:"):
+            # It's HTML content, write it to file
+            with open(self.output_file, 'w', encoding='utf-8') as f:
+                f.write(result)
         
         print(f"Wiki compiled to {self.output_file} with {len(self.tiddlers)} tiddlers")
 

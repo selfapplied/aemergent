@@ -46,7 +46,23 @@ pip install -e ../aemergent  # if aemergent is available
 
 ## Quick Start
 
-### Basic Usage
+### wikic Command (Recommended)
+
+```bash
+# Simple zip-like syntax
+./wikic output.html directory
+
+# Examples
+./wikic docs.html .                    # Current directory -> docs.html
+./wikic research.html papers/          # papers/ -> research.html  
+./wikic wikihtml .                     # Current directory -> wikihtml.html
+
+# With options
+./wikic project.html src/ -v           # Verbose output
+./wikic archive.html data/ --no-compression  # Disable compression
+```
+
+### Python API
 
 ```python
 from main import TiddlyWikiCompiler
@@ -56,17 +72,17 @@ compiler = TiddlyWikiCompiler("source_directory", "output_wiki.html")
 compiler.compile()
 ```
 
-### Command Line Usage
+### Legacy Command Line
 
 ```bash
-python main.py source_directory -o output_wiki.html
-python main.py source_directory --no-compression  # disable compression
+python3 main.py source_directory -o output_wiki.html
+python3 wikic.py output.html directory  # Same as ./wikic
 ```
 
 ### Demo
 
 ```bash
-python demo.py
+python3 demo.py
 ```
 
 This creates sample content and generates `demo_wiki.html` to showcase the system's capabilities.
@@ -82,6 +98,25 @@ tiddlywiki_compiler/
 ├── sample_blockprimes.md # Sample mathematical content
 └── README.md           # This file
 ```
+
+## Real TiddlyWiki Integration
+
+The compiler now uses the **actual TiddlyWiki** from npm to generate fully functional wiki files instead of simplified templates.
+
+### Features of Real TiddlyWiki Output:
+- **Complete TiddlyWiki functionality** - all standard features work
+- **KaTeX plugin** - Mathematical formula rendering
+- **CodeMirror plugin** - Advanced code editing 
+- **Highlight.js plugin** - Syntax highlighting for code
+- **Full search capabilities** - Built-in TiddlyWiki search
+- **Tag system** - Complete tagging and filtering
+- **Responsive design** - Works on all devices
+- **No server required** - Standalone HTML files
+
+### File Size Comparison:
+- **Basic template**: ~25KB (limited functionality)
+- **Real TiddlyWiki**: ~3-4MB (full functionality)
+- The size increase includes the complete TiddlyWiki core with all features
 
 ## Advanced Features
 

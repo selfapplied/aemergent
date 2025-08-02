@@ -1,0 +1,9 @@
+#!/bin/bash
+# wikic - TiddlyWiki Compiler
+# Simple wrapper script
+
+# Get the directory where this script is located
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Run the Python script
+python3 "$DIR/wikic.py" "$@"
